@@ -2,24 +2,24 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Layout from './components/MainLayout';
-import MultiCompanyQuoteGenerator from './components/MultiCompanyQuoteGenerator';
-import RFQAnalyzer from './components/RFQAnalyzer';
-import CRMManagement from './components/CRMManagement';
-import Procurement from './components/Procurement';
-import FinancialsView from './components/FinancialsView';
-import Settings from './components/Settings';
-import SmartBackground from './components/SmartBackground';
-import JagDashboard from './components/JagDashboard';
-import PaulDashboard from './components/PaulDashboard';
-import WorkflowBoard from './components/WorkflowBoard';
-import Login from './components/Login';
-import ServiceManagement from './components/ServiceManagement';
-import LoadingScreen from './components/ui/LoadingScreen';
-import { ToastProvider, useToast } from './components/ui/Toast';
-import { SettingsProvider, useSettings } from './context/SettingsContext';
-import { SidebarProvider } from './context/SidebarContext';
-import { ThemeProvider } from './context/ThemeContext';
-import { AppMode, UserRole } from './types';
+import MultiCompanyQuoteGenerator from '../components/MultiCompanyQuoteGenerator';
+import RFQAnalyzer from '../components/RFQAnalyzer';
+import CRMManagement from '../components/CRMManagement';
+import Procurement from '../components/Procurement';
+import FinancialsView from '../components/FinancialsView';
+import Settings from '../components/Settings';
+import SmartBackground from '../components/SmartBackground';
+import JagDashboard from '../components/JagDashboard';
+import PaulDashboard from '../components/PaulDashboard';
+import WorkflowBoard from '../components/WorkflowBoard';
+import Login from '../components/Login';
+import ServiceManagement from '../components/ServiceManagement';
+import LoadingScreen from '../components/ui/LoadingScreen';
+import { ToastProvider, useToast } from '../components/ui/Toast';
+import { SettingsProvider, useSettings } from '../context/SettingsContext';
+import { SidebarProvider } from '../context/SidebarContext';
+import { ThemeProvider } from '../context/ThemeContext';
+import { AppMode, UserRole } from '../types';
 
 const AppContent: React.FC = () => {
   const { settings, setSettings, appMode, setAppMode } = useSettings();
@@ -27,16 +27,16 @@ const AppContent: React.FC = () => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState<UserRole>(UserRole.ADMIN);
-  
+
   const [activeTab, setActiveTab] = useState('dashboard');
   const [activeSubTab, setActiveSubTab] = useState<string | undefined>(undefined);
-  
+
   const [quoteDraft, setQuoteDraft] = useState<any>(null);
   const [wealth, setWealth] = useState({
     bank: 45000,
     cash: 2300,
-    jag_pending: 12000, 
-    paul_debt: 2500,    
+    jag_pending: 12000,
+    paul_debt: 2500,
     credit_card: 1200
   });
 
@@ -83,31 +83,31 @@ const AppContent: React.FC = () => {
         {!isLoggedIn ? (
           <Login key="login-portal" onLogin={handleLogin} />
         ) : (
-          <Layout 
+          <Layout
             key="dashboard-layout"
-            activeTab={activeTab} 
-            setActiveTab={handleNavigate} 
-            appMode={appMode} 
+            activeTab={activeTab}
+            setActiveTab={handleNavigate}
+            appMode={appMode}
             toggleAppMode={() => setAppMode(appMode === AppMode.BUSINESS ? AppMode.PERSONAL : AppMode.BUSINESS)}
-            customTabs={[]} 
-            addCustomTab={() => {}}
-            deleteCustomTab={() => {}}
-            userRole={userRole} 
+            customTabs={[]}
+            addCustomTab={() => { }}
+            deleteCustomTab={() => { }}
+            userRole={userRole}
             settings={settings}
             onLogout={handleLogout}
           >
-            {activeTab === 'dashboard' && <JagDashboard wealth={wealth} setWealth={setWealth} onAddTransaction={() => {}} />}
+            {activeTab === 'dashboard' && <JagDashboard wealth={wealth} setWealth={setWealth} onAddTransaction={() => { }} />}
             {activeTab === 'financials' && <FinancialsView />}
-            
+
             {activeTab === 'quotes' && <MultiCompanyQuoteGenerator initialFilter={activeSubTab} initialData={quoteDraft} />}
             {activeTab === 'rfq' && <RFQAnalyzer isBusiness={true} onGenerateQuote={handleQuoteFromRFQ} />}
             {activeTab === 'services' && <ServiceManagement initialCategory={'ALL'} />}
             {activeTab === 'projects' && <WorkflowBoard userRole={userRole} />}
-            
+
             {activeTab === 'expenses' && <Procurement initialTab={activeSubTab as any} />}
-            
+
             {activeTab === 'contacts' && <CRMManagement initialTab={activeSubTab as any} />}
-            
+
             {activeTab === 'settings' && <Settings settings={settings} setSettings={setSettings} appState={{ wealth, customTabs: [] }} onRestore={handleRestore} />}
           </Layout>
         )}
