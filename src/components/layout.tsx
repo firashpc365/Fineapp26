@@ -6,19 +6,40 @@ import {
   FileText, 
   Settings, 
   Menu, 
+  User,
   LogOut,
   LayoutDashboard,
   Users,
+  Search,
   X,
   Package,
   BrainCircuit,
+  ShoppingBag,
+  Briefcase,
+  Contact,
+  Megaphone,
   Truck,
+  Receipt,
+  FileQuestion,
+  Wrench,
   ChevronRight,
   Bell,
-  FolderKanban
+  CheckCircle2,
+  AlertCircle,
+  Info,
+  FolderKanban,
+  Command,
+  Clock,
+  ArrowRight,
+  Home,
+  Check,
+  Trash2,
+  Inbox
 } from 'lucide-react';
 import { AppMode, UserRole, AppSettings } from '../types';
+import { useToast } from './ui/Toast';
 import ThemeSwitcher from './layout/ThemeSwitcher';
+import SmoothScroller from './ui/SmoothScroller';
 import GlobalSearch from './layout/GlobalSearch';
 import { useSidebar } from '../context/SidebarContext';
 
@@ -133,7 +154,9 @@ const Layout: React.FC<LayoutProps> = ({
   setActiveTab, 
   children, 
   appMode, 
+  toggleAppMode,
   userRole,
+  settings,
   onLogout
 }) => {
   const { isCollapsed, toggleSidebar, isMobileOpen, toggleMobileMenu, closeMobileMenu } = useSidebar();

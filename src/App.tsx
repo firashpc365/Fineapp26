@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
-// FIXED: Import lowercase 'layout' to match file system for Linux/Vercel builds
 import Layout from './components/layout';
 import MultiCompanyQuoteGenerator from './components/MultiCompanyQuoteGenerator';
 import RFQAnalyzer from './components/RFQAnalyzer';
@@ -15,8 +14,10 @@ import JagDashboard from './components/JagDashboard';
 import PaulDashboard from './components/PaulDashboard';
 import WorkflowBoard from './components/WorkflowBoard';
 import Login from './components/Login';
+import UserManager from './components/UserManager';
 import ServiceManagement from './components/ServiceManagement';
 import LoadingScreen from './components/ui/LoadingScreen';
+import ErrorDisplay from './components/ui/ErrorDisplay';
 import { ToastProvider, useToast } from './components/ui/Toast';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { SidebarProvider } from './context/SidebarContext';
@@ -30,11 +31,10 @@ const AppContent: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState<UserRole>(UserRole.ADMIN);
   
-  const navigate = useNavigate();
-  const location = useLocation();
+  // Revised Tab State Logic
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeSubTab, setActiveSubTab] = useState<string | undefined>(undefined);
   
-  // Derived state from URL to maintain compatibility with Layout props
-  const activeTab = location.pathname === '/' ? 'dashboard' : location.pathname.substring(1);
   const [quoteDraft, setQuoteDraft] = useState<any>(null);
   const [wealth, setWealth] = useState({
     bank: 45000,
@@ -53,19 +53,17 @@ const AppContent: React.FC = () => {
     setUserRole(role);
     setIsLoggedIn(true);
     if (startMode) setAppMode(startMode);
-    navigate('/dashboard');
+    setActiveTab('dashboard');
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    navigate('/');
     showToast("Session Terminated Securely", "INFO");
   };
 
-  // Maps legacy string tabs to routes
   const handleNavigate = (tab: string, subTab?: string) => {
-    if (tab === 'dashboard') navigate('/dashboard');
-    else navigate(`/${tab}`, { state: { subTab } });
+    setActiveTab(tab);
+    setActiveSubTab(subTab);
   };
 
   const handleQuoteFromRFQ = (data: any) => {
@@ -87,9 +85,7 @@ const AppContent: React.FC = () => {
 
       <AnimatePresence mode="wait">
         {!isLoggedIn ? (
-          <Routes>
-            <Route path="*" element={<Login key="login-portal" onLogin={handleLogin} />} />
-          </Routes>
+          <Login key="login-portal" onLogin={handleLogin} />
         ) : (
           <Layout 
             key="dashboard-layout"
@@ -104,19 +100,23 @@ const AppContent: React.FC = () => {
             settings={settings}
             onLogout={handleLogout}
           >
-            <Routes>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<JagDashboard wealth={wealth} setWealth={setWealth} onAddTransaction={() => {}} />} />
-              <Route path="/financials" element={<FinancialsView />} />
-              <Route path="/quotes" element={<MultiCompanyQuoteGenerator initialFilter={location.state?.subTab} initialData={quoteDraft} />} />
-              <Route path="/rfq" element={<RFQAnalyzer isBusiness={true} onGenerateQuote={handleQuoteFromRFQ} />} />
-              <Route path="/services" element={<ServiceManagement initialCategory={'ALL'} />} />
-              <Route path="/projects" element={<WorkflowBoard userRole={userRole} />} />
-              <Route path="/expenses" element={<Procurement initialTab={location.state?.subTab as any} />} />
-              <Route path="/contacts" element={<CRMManagement initialTab={location.state?.subTab as any} />} />
-              <Route path="/settings" element={<Settings settings={settings} setSettings={setSettings} appState={{ wealth, customTabs: [] }} onRestore={handleRestore} />} />
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
-            </Routes>
+            {activeTab === 'dashboard' && <JagDashboard wealth={wealth} setWealth={setWealth} onAddTransaction={() => {}} />}
+            {activeTab === 'financials' && <FinancialsView />}
+            
+            {/* Sales Module */}
+            {activeTab === 'quotes' && <MultiCompanyQuoteGenerator initialFilter={activeSubTab} initialData={quoteDraft} />}
+            {activeTab === 'rfq' && <RFQAnalyzer isBusiness={true} onGenerateQuote={handleQuoteFromRFQ} />}
+            {activeTab === 'services' && <ServiceManagement initialCategory={'ALL'} />}
+            {activeTab === 'projects' && <WorkflowBoard userRole={userRole} />}
+            
+            {/* Purchase Module */}
+            {activeTab === 'expenses' && <Procurement initialTab={activeSubTab as any} />}
+            
+            {/* Directory Module */}
+            {activeTab === 'contacts' && <CRMManagement initialTab={activeSubTab as any} />}
+            
+            {/* System */}
+            {activeTab === 'settings' && <Settings settings={settings} setSettings={setSettings} appState={{ wealth, customTabs: [] }} onRestore={handleRestore} />}
           </Layout>
         )}
       </AnimatePresence>
