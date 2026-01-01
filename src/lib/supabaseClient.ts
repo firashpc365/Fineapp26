@@ -1,11 +1,10 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// VITE SPECIFIC: Use import.meta.env instead of process.env
-const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
-const supabaseKey = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Fallback to placeholder to prevent crash if env vars are missing
+// Fallback to placeholder to prevent crash if env vars are missing during build time
 const url = supabaseUrl || 'https://placeholder.supabase.co';
 const key = supabaseKey || 'placeholder';
 

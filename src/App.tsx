@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
-// FIXED: Import lowercase 'layout' to match the actual filename on disk
 import Layout from './components/layout';
 import MultiCompanyQuoteGenerator from './components/MultiCompanyQuoteGenerator';
 import RFQAnalyzer from './components/RFQAnalyzer';
@@ -15,10 +14,8 @@ import JagDashboard from './components/JagDashboard';
 import PaulDashboard from './components/PaulDashboard';
 import WorkflowBoard from './components/WorkflowBoard';
 import Login from './components/Login';
-import UserManager from './components/UserManager';
 import ServiceManagement from './components/ServiceManagement';
 import LoadingScreen from './components/ui/LoadingScreen';
-import ErrorDisplay from './components/ui/ErrorDisplay';
 import { ToastProvider, useToast } from './components/ui/Toast';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { SidebarProvider } from './context/SidebarContext';
@@ -32,7 +29,6 @@ const AppContent: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState<UserRole>(UserRole.ADMIN);
   
-  // Revised Tab State Logic
   const [activeTab, setActiveTab] = useState('dashboard');
   const [activeSubTab, setActiveSubTab] = useState<string | undefined>(undefined);
   
@@ -104,19 +100,15 @@ const AppContent: React.FC = () => {
             {activeTab === 'dashboard' && <JagDashboard wealth={wealth} setWealth={setWealth} onAddTransaction={() => {}} />}
             {activeTab === 'financials' && <FinancialsView />}
             
-            {/* Sales Module */}
             {activeTab === 'quotes' && <MultiCompanyQuoteGenerator initialFilter={activeSubTab} initialData={quoteDraft} />}
             {activeTab === 'rfq' && <RFQAnalyzer isBusiness={true} onGenerateQuote={handleQuoteFromRFQ} />}
             {activeTab === 'services' && <ServiceManagement initialCategory={'ALL'} />}
             {activeTab === 'projects' && <WorkflowBoard userRole={userRole} />}
             
-            {/* Purchase Module */}
             {activeTab === 'expenses' && <Procurement initialTab={activeSubTab as any} />}
             
-            {/* Directory Module */}
             {activeTab === 'contacts' && <CRMManagement initialTab={activeSubTab as any} />}
             
-            {/* System */}
             {activeTab === 'settings' && <Settings settings={settings} setSettings={setSettings} appState={{ wealth, customTabs: [] }} onRestore={handleRestore} />}
           </Layout>
         )}
