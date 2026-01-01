@@ -1,10 +1,10 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Fallback to placeholder to prevent "supabaseUrl is required" error in Demo Mode
+// Fallback to placeholder to prevent crash if env vars are missing during build time
 const url = supabaseUrl || 'https://placeholder.supabase.co';
 const key = supabaseKey || 'placeholder';
 
