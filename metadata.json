@@ -1,0 +1,7 @@
+{
+  "name": "Copy of ElitePro Finance & Catering",
+  "description": "A sophisticated dual-use finance app for freelancers and catering businesses, featuring AI-powered transaction categorization, receipt OCR, quote generation, and RFQ analysis.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
