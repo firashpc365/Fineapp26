@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
-import Layout from './components/layout';
+import Layout from './components/MainLayout';
 import MultiCompanyQuoteGenerator from './components/MultiCompanyQuoteGenerator';
 import RFQAnalyzer from './components/RFQAnalyzer';
 import CRMManagement from './components/CRMManagement';
