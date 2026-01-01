@@ -227,12 +227,9 @@ export const generateQuote = async (
   return JSON.parse(response.text || "{}");
 };
 
-<<<<<<< HEAD
-=======
 /**
  * Analyzes an RFQ document or text to extract logistics and requirements.
  */
->>>>>>> 9aeb50b (sync: sync root with src; restore services exports; build fixes)
 export const analyzeRFQ = async (input: string | { data: string, mimeType: string }): Promise<RFQResult> => {
   const model = 'gemini-3-pro-preview';
   const parts: any[] = [];
@@ -285,12 +282,9 @@ export const analyzeRFQ = async (input: string | { data: string, mimeType: strin
   return JSON.parse(response.text || "{}");
 };
 
-<<<<<<< HEAD
-=======
 /**
  * Extracts quote data from a file or text for smart import.
  */
->>>>>>> 9aeb50b (sync: sync root with src; restore services exports; build fixes)
 export const extractQuoteData = async (input: string | { data: string, mimeType: string }): Promise<any> => {
   const model = 'gemini-3-pro-preview';
   const parts: any[] = [];
@@ -336,12 +330,9 @@ export const extractQuoteData = async (input: string | { data: string, mimeType:
   return JSON.parse(response.text || "{}");
 };
 
-<<<<<<< HEAD
-=======
 /**
  * Parses bulk service items from text or CSV.
  */
->>>>>>> 9aeb50b (sync: sync root with src; restore services exports; build fixes)
 export const parseBulkServices = async (input: string | { data: string, mimeType: string }): Promise<ServiceItem[]> => {
   const model = 'gemini-3-flash-preview';
   const parts: any[] = [];
@@ -378,12 +369,9 @@ export const parseBulkServices = async (input: string | { data: string, mimeType
   return JSON.parse(response.text || "[]");
 };
 
-<<<<<<< HEAD
-=======
 /**
  * Parses bulk client data.
  */
->>>>>>> 9aeb50b (sync: sync root with src; restore services exports; build fixes)
 export const parseBulkClients = async (input: string | { data: string, mimeType: string }): Promise<ClientItem[]> => {
   const model = 'gemini-3-flash-preview';
   const parts: any[] = [];
@@ -419,12 +407,9 @@ export const parseBulkClients = async (input: string | { data: string, mimeType:
   return JSON.parse(response.text || "[]");
 };
 
-<<<<<<< HEAD
-=======
 /**
  * Reconciles bank transactions with ledger.
  */
->>>>>>> 9aeb50b (sync: sync root with src; restore services exports; build fixes)
 export const reconcileTransactions = async (bank: any[], ledger: any[]): Promise<any[]> => {
   const model = 'gemini-3-flash-preview';
   const response = await ai.models.generateContent({
@@ -452,10 +437,6 @@ export const reconcileTransactions = async (bank: any[], ledger: any[]): Promise
       }
     }
   });
-<<<<<<< HEAD
 
-=======
-
->>>>>>> 9aeb50b (sync: sync root with src; restore services exports; build fixes)
   return JSON.parse(response.text || "[]");
 };
