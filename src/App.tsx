@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
+// FIXED: Import lowercase 'layout' to match the actual filename on disk
 import Layout from './components/layout';
 import MultiCompanyQuoteGenerator from './components/MultiCompanyQuoteGenerator';
 import RFQAnalyzer from './components/RFQAnalyzer';
