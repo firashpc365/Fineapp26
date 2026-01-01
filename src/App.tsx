@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
-import Layout from './components/Layout';
+// FIXED: Import lowercase 'layout' to match file system for Linux/Vercel builds
+import Layout from './components/layout';
 import MultiCompanyQuoteGenerator from './components/MultiCompanyQuoteGenerator';
 import RFQAnalyzer from './components/RFQAnalyzer';
 import CRMManagement from './components/CRMManagement';
@@ -14,10 +15,8 @@ import JagDashboard from './components/JagDashboard';
 import PaulDashboard from './components/PaulDashboard';
 import WorkflowBoard from './components/WorkflowBoard';
 import Login from './components/Login';
-import UserManager from './components/UserManager';
 import ServiceManagement from './components/ServiceManagement';
 import LoadingScreen from './components/ui/LoadingScreen';
-import ErrorDisplay from './components/ui/ErrorDisplay';
 import { ToastProvider, useToast } from './components/ui/Toast';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { SidebarProvider } from './context/SidebarContext';
@@ -113,8 +112,8 @@ const AppContent: React.FC = () => {
               <Route path="/rfq" element={<RFQAnalyzer isBusiness={true} onGenerateQuote={handleQuoteFromRFQ} />} />
               <Route path="/services" element={<ServiceManagement initialCategory={'ALL'} />} />
               <Route path="/projects" element={<WorkflowBoard userRole={userRole} />} />
-              <Route path="/expenses" element={<Procurement initialTab={location.state?.subTab} />} />
-              <Route path="/contacts" element={<CRMManagement initialTab={location.state?.subTab} />} />
+              <Route path="/expenses" element={<Procurement initialTab={location.state?.subTab as any} />} />
+              <Route path="/contacts" element={<CRMManagement initialTab={location.state?.subTab as any} />} />
               <Route path="/settings" element={<Settings settings={settings} setSettings={setSettings} appState={{ wealth, customTabs: [] }} onRestore={handleRestore} />} />
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>

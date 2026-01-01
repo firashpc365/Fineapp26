@@ -1,11 +1,10 @@
-/// <reference types="vite/client" />
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { Scope, TransactionResult, OCRResult, QuoteItem, QuoteResult, RFQResult, ServiceItem, ClientItem } from "../types";
 import { MENUS } from "../constants";
 
-// VITE FIX: Use import.meta.env
-// Fixed: Added vite/client reference to support import.meta.env types
-const apiKey = import.meta.env.VITE_API_KEY || '';
+// VITE FIX: Use import.meta.env with type casting
+const apiKey = (import.meta as any).env.VITE_API_KEY || '';
 const ai = new GoogleGenAI({ apiKey });
 
 // --- Configuration Helpers ---
