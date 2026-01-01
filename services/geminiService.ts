@@ -34,7 +34,7 @@ const getCurrency = () => {
 export const categorizeTransaction = async (input: string | { data: string, mimeType: string }): Promise<TransactionResult> => {
   const current_date = new Date().toISOString().split('T')[0];
   const currency = getCurrency();
-  
+
   const parts: any[] = [];
   let model = getModel();
 
@@ -227,6 +227,9 @@ export const generateQuote = async (
   return JSON.parse(response.text || "{}");
 };
 
+/**
+ * Analyzes an RFQ document or text to extract logistics and requirements.
+ */
 export const analyzeRFQ = async (input: string | { data: string, mimeType: string }): Promise<RFQResult> => {
   const model = 'gemini-3-pro-preview';
   const parts: any[] = [];
@@ -279,6 +282,9 @@ export const analyzeRFQ = async (input: string | { data: string, mimeType: strin
   return JSON.parse(response.text || "{}");
 };
 
+/**
+ * Extracts quote data from a file or text for smart import.
+ */
 export const extractQuoteData = async (input: string | { data: string, mimeType: string }): Promise<any> => {
   const model = 'gemini-3-pro-preview';
   const parts: any[] = [];
@@ -321,9 +327,12 @@ export const extractQuoteData = async (input: string | { data: string, mimeType:
     }
   });
 
-  return JSON.parse(response.text || "{}");
+  return JSON.parse(response.text || "[]");
 };
 
+/**
+ * Parses bulk service items from text or CSV.
+ */
 export const parseBulkServices = async (input: string | { data: string, mimeType: string }): Promise<ServiceItem[]> => {
   const model = 'gemini-3-flash-preview';
   const parts: any[] = [];
@@ -360,6 +369,9 @@ export const parseBulkServices = async (input: string | { data: string, mimeType
   return JSON.parse(response.text || "[]");
 };
 
+/**
+ * Parses bulk client data.
+ */
 export const parseBulkClients = async (input: string | { data: string, mimeType: string }): Promise<ClientItem[]> => {
   const model = 'gemini-3-flash-preview';
   const parts: any[] = [];
@@ -395,6 +407,9 @@ export const parseBulkClients = async (input: string | { data: string, mimeType:
   return JSON.parse(response.text || "[]");
 };
 
+/**
+ * Reconciles bank transactions with ledger.
+ */
 export const reconcileTransactions = async (bank: any[], ledger: any[]): Promise<any[]> => {
   const model = 'gemini-3-flash-preview';
   const response = await ai.models.generateContent({
@@ -422,6 +437,10 @@ export const reconcileTransactions = async (bank: any[], ledger: any[]): Promise
       }
     }
   });
-  
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> 9aeb50b (sync: sync root with src; restore services exports; build fixes)
   return JSON.parse(response.text || "[]");
 };
