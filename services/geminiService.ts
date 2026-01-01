@@ -34,7 +34,7 @@ const getCurrency = () => {
 export const categorizeTransaction = async (input: string | { data: string, mimeType: string }): Promise<TransactionResult> => {
   const current_date = new Date().toISOString().split('T')[0];
   const currency = getCurrency();
-  
+
   const parts: any[] = [];
   let model = getModel();
 
@@ -453,7 +453,7 @@ export const reconcileTransactions = async (bank: any[], ledger: any[]): Promise
     }
   });
 <<<<<<< HEAD
-  
+
 =======
 
 >>>>>>> 9aeb50b (sync: sync root with src; restore services exports; build fixes)
