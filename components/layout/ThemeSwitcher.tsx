@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useTheme } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
 import { Droplets, Cpu, Crown, Snowflake, Sun, Trees, Moon, Flame, Zap } from "lucide-react";
 
 export default function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const themes = [
     { id: 'ocean', icon: Droplets, color: 'bg-blue-500', label: 'Ocean' },
@@ -19,6 +20,18 @@ export default function ThemeSwitcher() {
     { id: 'neon', icon: Zap, color: 'bg-lime-500', label: 'Neon' },
   ];
 
+  // Defer state update using requestIdleCallback to avoid blocking UI
+  const handleThemeChange = useCallback((themeId: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    // Use requestIdleCallback if available, fall back to setTimeout
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => setTheme(themeId as any));
+    } else {
+      timeoutRef.current = setTimeout(() => setTheme(themeId as any), 0);
+    }
+  }, [setTheme]);
+
   return (
     <div className="flex bg-slate-900/50 backdrop-blur-md p-1.5 rounded-full border border-slate-800 gap-1.5 shadow-xl overflow-x-auto custom-scrollbar max-w-[200px] md:max-w-none">
       {themes.map((t) => {
@@ -26,7 +39,7 @@ export default function ThemeSwitcher() {
         return (
           <button
             key={t.id}
-            onClick={() => setTheme(t.id as any)}
+            onClick={() => handleThemeChange(t.id)}
             className={`
               p-2.5 rounded-full transition-all relative flex items-center justify-center group outline-none shrink-0
               ${isActive ? "text-white shadow-[0_0_15px_rgba(255,255,255,0.15)] ring-1 ring-white/20" : "text-slate-500 hover:text-white hover:bg-white/5"}
@@ -34,13 +47,13 @@ export default function ThemeSwitcher() {
           >
             {/* Active Indicator Background */}
             {isActive && (
-              <motion.div 
+              <motion.div
                 layoutId="activeTheme"
                 className={`absolute inset-0 rounded-full ${t.color} opacity-20`}
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
-            
+
             {/* Icon */}
             <t.icon size={16} strokeWidth={isActive ? 2.5 : 2} className="relative z-10" />
 
