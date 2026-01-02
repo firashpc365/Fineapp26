@@ -48,6 +48,7 @@ const ACCENT_MAP = {
   blue: { primary: '#3b82f6', glow: 'rgba(59, 130, 246, 0.5)', text: 'text-blue-400', bg: 'bg-blue-600' },
   purple: { primary: '#a855f7', glow: 'rgba(168, 85, 247, 0.5)', text: 'text-purple-400', bg: 'bg-purple-600' },
   gold: { primary: '#eab308', glow: 'rgba(234, 179, 8, 0.5)', text: 'text-yellow-400', bg: 'bg-yellow-500' },
+  cyan: { primary: '#06b6d4', glow: 'rgba(6, 182, 212, 0.5)', text: 'text-cyan-400', bg: 'bg-cyan-600' },
 };
 
 const GLASS_MAP = {

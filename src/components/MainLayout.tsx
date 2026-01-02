@@ -97,15 +97,15 @@ const NavButton: React.FC<NavButtonProps> = ({
         if (isMobile) closeMobileMenu();
       }}
       className={`
-        w-full flex items-center gap-3 px-4 py-3.5 rounded-r-xl transition-all relative group mb-1
+        w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all relative group mb-1.5
         ${isActive
-          ? 'bg-blue-500/10 text-blue-400 border-l-2 border-blue-500 shadow-[inset_10px_0_20px_-10px_rgba(59,130,246,0.1)]'
-          : 'text-slate-400 hover:text-slate-100 hover:bg-white/5 border-l-2 border-transparent'}
-        ${isCollapsed && !isMobile ? 'justify-center px-2 border-l-0 rounded-xl' : ''}
+          ? 'bg-gradient-to-r from-blue-500/20 to-teal-500/10 text-blue-300 border border-blue-500/30 shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]'
+          : 'text-slate-400 hover:text-slate-100 hover:bg-white/5 border border-transparent hover:border-white/10'}
+        ${isCollapsed && !isMobile ? 'justify-center px-2 rounded-lg' : ''}
       `}
     >
       <div className={`relative ${isActive ? 'scale-110' : 'group-hover:scale-105'} transition-transform`}>
-        <item.icon size={20} className={isActive ? 'text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]' : 'text-slate-500 group-hover:text-slate-200 transition-colors'} />
+        <item.icon size={20} className={isActive ? 'text-blue-300 drop-shadow-[0_0_10px_rgba(59,130,246,0.6)]' : 'text-slate-500 group-hover:text-slate-200 transition-colors'} />
       </div>
 
       {(!isCollapsed || isMobile) && (
@@ -114,7 +114,7 @@ const NavButton: React.FC<NavButtonProps> = ({
 
       {/* Smart Tooltip for Collapsed State */}
       {isCollapsed && !isMobile && (
-        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1.5 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap z-50 border border-white/10 shadow-xl translate-x-2 group-hover:translate-x-0">
+        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1.5 bg-slate-900/95 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap z-50 border border-blue-500/30 shadow-xl translate-x-2 group-hover:translate-x-0">
           {item.label}
           {/* Arrow */}
           <div className="absolute top-1/2 -left-1 -translate-y-1/2 border-t-4 border-b-4 border-r-4 border-transparent border-r-slate-900" />
@@ -123,7 +123,7 @@ const NavButton: React.FC<NavButtonProps> = ({
 
       {/* Mobile Active Indicator */}
       {isActive && isMobile && (
-        <motion.div layoutId="mobileActiveIndicator" className="absolute right-4 w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+        <motion.div layoutId="mobileActiveIndicator" className="absolute right-4 w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
       )}
     </button>
   );
@@ -165,20 +165,20 @@ const MainLayout: React.FC<LayoutProps> = ({
         className="hidden lg:flex flex-col border-r border-white/5 bg-slate-950/60 relative z-50 h-full backdrop-blur-md group shadow-2xl"
       >
         {/* Logo Area */}
-        <div className={`p-6 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} h-[88px]`}>
+        <div className={`p-6 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} h-[88px] border-b border-white/5`}>
           {!isCollapsed && (
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-teal-500 flex items-center justify-center text-white font-black text-xs shadow-lg shadow-blue-900/20 ring-1 ring-white/10">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-teal-500 to-cyan-500 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-900/30 ring-2 ring-white/10">
                 EP
               </div>
               <div>
                 <span className="font-black tracking-tight text-white text-lg block leading-none">ElitePro</span>
-                <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Fin.OS v4.0</span>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Financial OS</span>
               </div>
             </div>
           )}
           {isCollapsed && (
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-teal-500 flex items-center justify-center text-white font-black text-xs shadow-lg shadow-blue-900/20 ring-1 ring-white/10">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-teal-500 to-cyan-500 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-900/30 ring-2 ring-white/10">
               EP
             </div>
           )}
@@ -190,14 +190,14 @@ const MainLayout: React.FC<LayoutProps> = ({
         </div>
 
         {/* Navigation */}
-        <div className="flex-1 overflow-y-auto px-0 py-4 space-y-8 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto px-0 py-6 space-y-6 custom-scrollbar">
           {Object.entries(NAV_STRUCTURE).map(([section, items]) => (
-            <div key={section} className="space-y-1">
+            <div key={section} className="space-y-2">
               {!isCollapsed && (
-                <p className="px-6 text-[9px] font-black text-slate-600 uppercase tracking-[0.2em] mb-2">{section}</p>
+                <p className="px-6 text-[8px] font-black text-slate-500 uppercase tracking-[0.3em] mb-3 opacity-75">{section}</p>
               )}
               {isCollapsed && (
-                <div className="h-px w-8 bg-white/5 mx-auto my-4" />
+                <div className="h-px w-8 bg-white/10 mx-auto my-3" />
               )}
               {items.map(item => (
                 <NavButton
