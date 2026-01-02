@@ -40,6 +40,7 @@ const NAV_STRUCTURE: Record<MainTab, NavItem[]> = {
   ],
   SALES: [
     { id: 'quotes', label: 'Quotations', icon: FileText, roles: [UserRole.ADMIN, UserRole.PAUL] },
+    { id: 'quote-studio', label: 'Quote Studio', icon: FileText, roles: [UserRole.ADMIN, UserRole.PAUL] },
     { id: 'rfq', label: 'RFQ Intelligence', icon: BrainCircuit, roles: [UserRole.ADMIN, UserRole.PAUL] },
     { id: 'services', label: 'Service Catalog', icon: Package, roles: [UserRole.ADMIN] },
     { id: 'projects', label: 'Active Projects', icon: FolderKanban, roles: [UserRole.ADMIN, UserRole.PAUL] },

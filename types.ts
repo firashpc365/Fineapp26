@@ -27,12 +27,12 @@ export interface AppSettings {
   aiThinkingMode: boolean;
   autoRecordConfidence: number;
   aiModelPreference: 'flash' | 'pro';
-  
+
   // Interface
   compactSidebar: boolean;
   glassIntensity: 'low' | 'medium' | 'high';
   themeAccent: 'teal' | 'blue' | 'purple' | 'gold';
-  activeWallpaper: string; 
+  activeWallpaper: string;
   animationsEnabled: boolean;
   motionEffects: boolean;
   autoSync: boolean;
@@ -42,18 +42,23 @@ export interface AppSettings {
   enableTechGrid: boolean;  // Visibility of tech pattern
   enableNoise: boolean;     // Visibility of grain
   techGridPosition: 'back' | 'front'; // Layer ordering
-  
+
   // Environment
   defaultCurrency: string;
   enableNotifications: boolean;
   language: 'en' | 'ar';
-  
+
   // Business Logic
   defaultTaxRate: number;      // VAT e.g., 15
   jagInvoiceFeeRate: number;   // e.g., 10
   paulInvoiceFeeRate: number;  // e.g., 5
   paulCommissionRate: number;
   targetProfitMargin: number;
+  // Quote Studio Defaults
+  quoteDefaultMargin?: number; // percent
+  quoteRounding?: 'none' | '5' | '10';
+  quoteTemplateId?: string | null;
+  quoteDeepAnalysis?: boolean;
 }
 
 export interface TransactionResult {

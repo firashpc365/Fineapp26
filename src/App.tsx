@@ -14,6 +14,7 @@ import PaulDashboard from '../components/PaulDashboard';
 import WorkflowBoard from '../components/WorkflowBoard';
 import Login from '../components/Login';
 import ServiceManagement from '../components/ServiceManagement';
+import QuoteStudio from '../components/QuoteStudio';
 import LoadingScreen from '../components/ui/LoadingScreen';
 import { ToastProvider, useToast } from '../components/ui/Toast';
 import { SettingsProvider, useSettings } from '../context/SettingsContext';
@@ -100,6 +101,7 @@ const AppContent: React.FC = () => {
             {activeTab === 'financials' && <FinancialsView />}
 
             {activeTab === 'quotes' && <MultiCompanyQuoteGenerator initialFilter={activeSubTab} initialData={quoteDraft} />}
+            {activeTab === 'quote-studio' && <QuoteStudio />}
             {activeTab === 'rfq' && <RFQAnalyzer isBusiness={true} onGenerateQuote={handleQuoteFromRFQ} />}
             {activeTab === 'services' && <ServiceManagement initialCategory={'ALL'} />}
             {activeTab === 'projects' && <WorkflowBoard userRole={userRole} />}

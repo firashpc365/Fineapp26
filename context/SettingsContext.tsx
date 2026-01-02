@@ -25,17 +25,22 @@ const DEFAULT_SETTINGS: AppSettings = {
   enableTechGrid: true,
   enableNoise: true,
   techGridPosition: 'back',
-  
+
   defaultCurrency: 'SAR',
   enableNotifications: true,
   language: 'en',
-  
+
   // Financial Defaults
   defaultTaxRate: 15,      // VAT 15%
   jagInvoiceFeeRate: 10,   // JAG Fee 10%
   paulInvoiceFeeRate: 5,   // Paul Fee 5%
   paulCommissionRate: 15,
   targetProfitMargin: 20,
+  // Quote Studio Defaults
+  quoteDefaultMargin: 20,
+  quoteRounding: '5',
+  quoteTemplateId: null,
+  quoteDeepAnalysis: false,
 };
 
 const ACCENT_MAP = {
@@ -69,7 +74,7 @@ export const SettingsProvider: React.FC<{ children?: React.ReactNode }> = ({ chi
   useEffect(() => {
     const accent = ACCENT_MAP[settings.themeAccent] || ACCENT_MAP.blue;
     const blur = GLASS_MAP[settings.glassIntensity] || GLASS_MAP.medium;
-    
+
     const root = document.documentElement;
     root.style.setProperty('--accent-primary', accent.primary);
     root.style.setProperty('--accent-glow', accent.glow);
@@ -82,7 +87,7 @@ export const SettingsProvider: React.FC<{ children?: React.ReactNode }> = ({ chi
       styleTag.id = 'dynamic-theme-overrides';
       document.head.appendChild(styleTag);
     }
-    
+
     styleTag.innerHTML = `
       .theme-accent-text { color: ${accent.primary} !important; }
       .theme-accent-bg { background-color: ${accent.primary} !important; }
